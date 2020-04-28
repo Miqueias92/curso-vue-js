@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>curso de vue.js - aula02</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <h1 v-if="status">{{ titulo }}</h1>
+
+        <p v-if="status"> 
+            O v-if e v-show são parecidos, ambos podem exibir ou ocultar elementos na tela, 
+            a diferença é que o v-if além de esconder o texto, ele não aparecerá na renderização da página. 
+            Já o v-show irá ocultar o texto com um "hide", esconder o elemento adicionando um style=display:none 
+        </p>
+        <p v-show="status">
+            O v-if e v-show são parecidos, ambos podem exibir ou ocultar elementos na tela, 
+            a diferença é que o v-if além de esconder o texto, ele não aparecerá na renderização da página. 
+            Já o v-show irá ocultar o texto com um "hide", esconder o elemento adicionando um style=display:none 
+        </p>
+
+        <p v-if="status">Condição Verdadeira</p>
+        <div v-else>Condição Falsa</div> -->
+
+        <h1>{{ titulo }}</h1>
+        <div v-if="usuario.id==1">
+            Id: {{ usuario.id }} <br>
+            Nome: {{ usuario.nome }} <br>
+            Profissão: {{ usuario.profissao }} <br>
+        </div>
+        <div v-else>Nenhum usuário com o id = 1</div>   
+    </div>
+    
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        // var app = new Vue({
+        //     el: "#app",
+        //     data: {
+        //         status: false,
+        //         titulo: "aula 02/03 - diretivas no Vue.js"
+        //     }
+        // });
+
+        var app = new Vue({
+            el: "#app",
+            data:  {
+                titulo: "Vuejs do jeito ninja!",
+                usuario: {
+                    id: 1,
+                    nome: "Jon Snow",
+                    profissao: "Ator",
+                }
+            },
+        });
+    </script>
+</body>
+</html>

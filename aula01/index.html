@@ -6,6 +6,18 @@
     <title>curso de vue.js - aula01</title>
 </head>
 <body>
-    <script src=""></script>
+    <div id="app">
+        <h1>{{ titulo }}</h1>
+    </div>
+    
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                titulo: "Aula 01 - Vuejs do jeito ninja"
+            }
+        });
+    </script>
 </body>
 </html>
