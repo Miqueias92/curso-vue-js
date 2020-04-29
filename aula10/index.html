@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>curso de vue.js</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+</head>
+<body>
+    <div id="app">
+        <h1>{{ titulo }}</h1>
+        <!-- 
+          {{ nome }} <br>
+          {{ toUpperCase }} 
+        -->
+
+        {{ fullName }}
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+
+            data:  {
+                titulo: "Vuejs do jeito ninja!",
+                firstName: '',
+                lastName: '',
+                //fullName: ''
+            },
+
+            // computed: {
+            //     toUpperCase(){
+            //         return this.nome.toUpperCase();
+            //     }
+            // },
+
+            // watch: {
+            //     nome(newValue, oldValue){
+            //         console.log('newValue', newValue);
+            //         console.log('newValue', oldValue);
+            //     }
+            // },
+
+            computed: {
+                fullName(){
+                    return this.firstName + ' ' + this.lastName;
+                }
+            },
+
+            watch: {
+                // firstName(newValue){
+                //     this.fullName = newValue + ' ' + this.lastName; 
+                // },
+
+                // lastName(newValue){
+                //     this.fullName = this.firstName + ' ' + newValue;
+                // }
+
+                // outro exemplo de uso
+                firstName(newValue){
+                    this.updateUser(); 
+                },
+            },
+
+            methods: {
+                updateUser(){
+                    console.log('Usuário atualizado!!');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
