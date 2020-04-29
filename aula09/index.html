@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>curso de vue.js</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+</head>
+<body>
+    <div id="app">
+        <h1>{{ titulo }}</h1>
+        <ul>
+            <li v-for="usuario in usuarios">
+                 {{ usuario.nome | toUpperCase('a', 'b') | truncate('10') }} 
+            </li>
+        </ul>
+        <form action="http://google.com">
+            <!-- <button type="submit" class="btn btn-primary" v-on:click.prevent.stop="enviar">Enviar</button> -->
+            <button type="submit" class="btn btn-primary" @click.prevent.stop="enviar">Enviar</button>
+        </form>
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data:  {
+                titulo: "Vuejs do jeito ninja!",
+                usuarios: [
+                    { nome: "Jon Snow" },
+                    { nome: "Tyrion Lannister" },
+                    { nome: "Daenerys Targaryen" }
+                ]
+            },
+            filters: {
+                toUpperCase(str, param1, param2){
+                    console.log('param1', param1);
+                    console.log('param2', param2);
+                    return str.toUpperCase();
+                },
+                truncate(str, length){
+                    var output = str;
+                    if (output.length > length) {
+                        output = str.substring(0, length) + ' ...';
+                    }
+                    return output;
+                }
+            },
+            methods: {
+                enviar() {
+                    alert('Enviando!')
+                },
+            }
+        });
+    </script>
+</body>
+</html>
