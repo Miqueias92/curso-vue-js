@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>curso de vue.js</title>
+
+    <style>
+        .red {
+            color: red;
+        }
+
+        .green {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>{{ titulo }}</h1>
+        <!--   pode usar o v-bind: ou apenas os : antes dos atributos     -->
+        <img v-bind:src="imagem" :alt="alt" v-bind:title="'vue.js imagem'">
+
+        <p :class="classHtml">Aplicando estilo através da diretiva v-bind, no parágrafo html</p>
+    </div>
+    
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data:  {
+                titulo: "Vuejs do jeito ninja!",
+                imagem: "vueimg.png", // imagem: "https://miro.medium.com/max/2430/1*ACR0gj0wbx91V_xgURifWg.png"
+                alt: "Imagem do vue.js",
+                classHtml: "green"
+            },
+        });
+    </script>
+</body>
+</html>
