@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>curso de vue.js</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+</head>
+<body>
+    <div id="app">
+        <h1>{{ titulo }}</h1>
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+
+            beforeCreate() {
+                console.log('beforeCreate');
+                console.log('titulo', this.titulo);
+                console.log('el', this.$el);
+            },
+            created() {
+                console.log('created');
+                console.log('titulo', this.titulo);
+                console.log('el', this.$el);
+            },
+            beforeMount() {
+                console.log('beforeMount');
+                console.log('titulo', this.titulo);
+                console.log('el', this.$el);
+            },
+            mounted() {
+                console.log('mounted');
+                console.log('titulo', this.titulo);
+                console.log('el', this.$el);
+            },
+            beforeUpdate() {
+                console.log('beforeUpdate');
+            },
+            updated() {
+                console.log('updated');
+            },
+
+            data:  {
+                titulo: "Vuejs do jeito ninja!",
+            },
+        });
+    </script>
+</body>
+</html>
