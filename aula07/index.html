@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>curso de vue.js</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+</head>
+<body>
+    <div id="app">
+        <h1>{{ titulo }}</h1>
+        <button class="btn" v-bind:class="btnClassLimpar" v-bind:style="btnStyleLimpar">Limpar</button>
+        <button class="btn" v-bind:class="btnClassEnviar" v-bind:style="btnStyleEnviar">Enviar</button>
+    </div>
+    
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data:  {
+                titulo: "Vuejs do jeito ninja!",
+                btnClassLimpar: {
+                    'btn-danger': true,
+                    'btn-sm': true,
+                },
+                btnClassEnviar: [
+                    'btn-primary', 'btn-lg'
+                ],
+                // Outras formas de fazer
+                // btnClassEnviar: [
+                //     'btn-primary', { 'btn-lg': false }
+                // ]
+                //btnClassLimpar: "btn-danger btn-sm",
+                //btnClassEnviar: "btn-primary btn-lg"
+                btnStyleEnviar: 'font-size: 10px',
+                btnStyleLimpar: [ 
+                    { 'font-size': '50px' },
+                    { 'text-transform': 'lowercase' }
+                ]
+                // btnStyleLimpar: { 
+                //     'font-size': '50px',
+                //     'text-transform': 'lowercase'
+                // }
+            },
+        });
+    </script>
+</body>
+</html>
