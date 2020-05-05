@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>curso de vue.js</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+</head>
+<body>
+    <div id="app">
+        <nav-bar></nav-bar>
+        <menu-bar :items="[ { label: 'Empresa' },  { label: 'Serviços' } ]"></menu-bar>
+    </div>
+
+    <template id="nav">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+              <!-- Populando a props, e passando a mesma para o template (menu-bar) --> 
+              <!--<menu-bar :items="[{ label: 'Home'}, { label: 'Link' }, { label: 'Active' }]"></menu-bar>-->
+              
+              <!-- variável -> topNav declarada dentro do template (nav-bar)  -->
+              <menu-bar :items="topNav"
+                    @emit-click="getLink"
+              ></menu-bar> 
+              
+              <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form>
+            </div>
+          </nav>
+    </template>
+
+    <template id="menu">
+        <div>
+            <!--  {{ items }}  --> 
+            <ul class="navbar-nav mr-auto">
+                <!-- Iterando sobre a lista de itens da "props" -->
+                <li v-for="(item, index) in items"   
+                    class="nav-item">
+                    <a @click.stop.prevent="emitClick(index)" 
+                        class="nav-link" href="#">{{ item.label }}</a>
+                </li>
+          </ul>
+        </div>
+    </template>
+
+    <script src="https://unpkg.com/vue"></script>
+    
+    <script>
+        Vue.component('nav-bar', {
+            template: "#nav",
+            data(){
+                return {
+                    topNav: [{ label: 'Home'}, { label: 'Link' }, { label: 'Active' }]
+                }
+            },
+            
+            methods: {
+                getLink(index){
+                    alert(this.topNav[index].label);
+                }
+            }
+        });
+
+        Vue.component('menu-bar', {
+            template: "#menu",
+            //props: ['items'], // -- Dando nome para a props (identificador)
+            
+            // props: {
+            //     items: {
+            //         type: String,
+            //         required: true,
+            //         default: 'Vuejs'
+            //     }
+            // }
+
+            props: {
+                items: {
+                    type: Array, // type: String | Array | Object | Boolean,
+                    required: true,
+                }
+            },
+
+            methods: {
+                emitClick(index) {
+                    this.$emit('emit-click', index);
+                }
+            }
+        });
+
+        var app = new Vue({
+            el: "#app",
+            data:  {
+                titulo: "Vuejs componentes",
+            },
+        });
+    </script>
+</body>
+</html>
