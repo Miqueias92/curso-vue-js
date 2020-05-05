@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>curso de vue.js</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+</head>
+<body>
+    <div id="app">
+
+        <br><br><br>
+        <div class="container">
+            <input-form></input-form>
+            
+            <br>
+
+            <my-list></my-list>
+        </div>
+    </div>
+
+    <template id="form">
+        <div class="card">
+            <div class="card-block">
+                <div class="form-group">
+                    <label for="">Títulos</label>
+                    <input v-model="title" type="text" class="form-control">
+                </div>
+
+                <button @click.stop.prevent="submit()" 
+                        class="btn btn-primary">ENVIAR</button>
+            </div>
+        </div>
+    </template>
+
+    <template id="list">
+        <ul class="list-group">
+            <li v-for="item in list" 
+                class="list-group-item">{{ item.title }}</li>
+        </ul>
+    </template>
+
+    <script src="https://unpkg.com/vue"></script>
+    
+    <script>
+
+        Vue.component('input-form', {
+            template: "#form",
+            data(){
+                return{
+                    title: '',
+                }
+            },
+
+            methods: {
+                submit(){
+                    // eventBus.$emit('submit', this.title);
+                    this.$eventHub.$emit('submit', this.title);
+                }
+            }
+        });
+
+        Vue.component('my-list', {
+            template: "#list",
+            created() {
+                var that = this;
+                // eventBus.$on('submit', function(titulo){
+                //     if (titulo) {
+                //         that.list.push({ title: titulo });
+                //     }
+                // });
+
+                this.$eventHub.$on('submit', function(titulo){
+                    if (titulo) {
+                        that.list.push({ title: titulo });
+                    }
+                });
+            },
+
+            data() {
+                return {    
+                    list: [
+                        { title : "Ir a feira" }
+                    ]
+                }
+            }
+        });
+
+        // var eventBus = new Vue();
+        //ou
+        Vue.prototype.$eventHub = new Vue();
+
+        var app = new Vue({
+            el: "#app",
+            data:  {
+                titulo: "Vuejs componentes",
+            },
+        });
+    </script>
+</body>
+</html>
