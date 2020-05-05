@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>curso de vue.js</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+</head>
+<body>
+    <div id="app">
+
+        <br><br><br>
+        <div class="container">
+
+            <!-- forma 01 -->
+            <card>
+                <!-- <div>Vuejs do jeito ninja</div> -->
+              <h4 class="card-title">Card title</h4>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </card>
+            
+
+
+            <!-- forma 02 -->
+            <card>
+              <h4 slot="title" class="card-title">Card title 2</h4>
+              
+              <!-- <p slot="text" class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ultrices feugiat mattis</p> -->
+              
+              <!-- **  ou  **  -->
+              <template slot="text">
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ultrices feugiat mattis</p>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ultrices feugiat mattis</p>
+              </template>
+              
+              <a slot="action" href="#" class="btn btn-primary">Leia mais</a>
+            </card>
+        </div>
+    </div>
+
+    <template id="card">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="http://via.placeholder.com/350x150" alt="Card image cap">
+            <div class="card-body">
+              <slot></slot> <!-- forma 01 -->
+
+              <!-- forma 02 -->
+              <slot name="title"></slot>
+              <slot name="text"></slot>
+              <slot name="action"></slot>
+            </div>
+          </div>
+    </template>
+
+    <script src="https://unpkg.com/vue"></script>
+    
+    <script>
+        Vue.component('card', {
+            template: "#card",
+            data(){
+                return{
+                    title: '',
+                }
+            },
+        });
+
+        var app = new Vue({
+            el: "#app",
+            data:  {
+                titulo: "Vuejs do jeito ninja",
+            },
+        });
+    </script>
+</body>
+</html>
