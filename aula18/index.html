@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>curso de vue.js</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+</head>
+<body>
+    <div id="app">
+        <br><br><br>
+        <div class="container">
+            <h3>{{ titulo }}</h3>
+            <button @click.stop.prevent="getUsers()" 
+                    class="btn btn-primary">SUBMIT</button>
+
+            <div v-if="response.status == 'error'" class="alert alert-danger">{{ response.msg }}</div>
+
+            <div v-if="loader.users" class="">Carregando usuários</div>
+            
+            <ul v-for="user in users">
+                <li>Nome: {{ user.name }}  e-mail:  {{ user.email }}</li>
+            </ul>                    
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+    
+    <script>
+
+        var mixin = {
+            methods: {
+                getUsers() {
+
+                    this.loader.users = true;
+
+                    let url = "http://jsonplaceholder.typicode.com/users";
+                    this.$http.get(url)
+                    .then(
+                        function(response) {
+                        this.users = response.body;
+
+                    }, function(error){
+                        this.response.status = 'error';
+                        
+                    }).finally(function(){
+                        this.loader.users = false;
+                    }); 
+                }
+            }
+        }
+
+        var app = new Vue({
+            el: "#app",
+
+            data:  {
+                titulo: "Vuejs do jeito ninja",
+                users: [],
+                loader: {
+                    users: false,
+                },
+                response: {
+                    msg: "Erro ao conectar",
+                    status: ""
+                }
+            },
+
+            mixins: [mixin],
+
+            methods: { }
+        });
+    </script>
+</body>
+</html>
