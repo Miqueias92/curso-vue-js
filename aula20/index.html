@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>curso de vue.js</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+</head>
+<body>
+
+    <!-- 
+        O KEY é um atributo que ajuda a mapear o DOM quando se tem alguma alteração. 
+        O REF fornece uma forma de acessar os elementos do DOM. 
+        Já o IS, é um atributo especial que te possibilita a criar componentes dinâmicos. 
+        Enquanto os Slots são identificados por nome e permitem que você defina espaços dentro do seu componentes.  
+    -->
+    
+    <div id="app">
+        <br><br><br>
+        <div class="container">
+            <h3 ref="titulo">{{ titulo }}</h3>
+            
+            <component :is="movie"></component>
+            <!-- <component v-bind:is="movie"></component> -->
+
+            <!-- <transformers v-if="movie == 'transformers'"></transformers>
+            <game-of-thrones v-if="movie=='game-of-thrones'"></game-of-thrones> -->
+            
+            
+            <!-- Ref -> serve para identificar os elementos no contexto do html -->
+            <ul ref="users">
+
+                <!-- :key  ->  ajuda o vuejs na identificação -->
+                <li v-for="(item, index) in users" :key="item.name">
+                    {{ item.name }} <a @click.stop.prevent="remove(index)">X</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <template id="transformers">
+        <div>
+            <h4>Transformers</h4>
+            <ul>
+                <li v-for="item in transformers">
+                    {{ item.name }}
+                </li>
+            </ul>
+        </div>
+    </template>
+
+    <template id="gameOfThrones">
+        <div>
+            <h4>Game Of Thrones</h4>
+            <ul>
+                <li v-for="item in gameOfThrones">
+                    {{ item.name }}
+                </li>
+            </ul>
+        </div>
+    </template>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+    
+    <script>
+
+        Vue.component('transformers', {
+            template: '#transformers',
+            data(){
+                return {
+                    transformers: [
+                        { name: "Optimus Prime" },
+                        { name: "Bumble Bee" },
+                        { name: "Megatron" }
+                    ]
+                }
+            }            
+        });
+
+        Vue.component('game-of-thrones', {
+            template: '#gameOfThrones',
+            data(){
+                return {
+                    gameOfThrones: [
+                        { name: "Jon Snow" },
+                        { name: "Daenerys Targaryen" },
+                        { name: "Tyron" }
+                    ]
+                }
+            }
+        });
+
+        var app = new Vue({
+            el: "#app",
+
+            mounted(){
+                console.log(this.$refs.users);
+            },
+
+            data:  {
+                titulo: "Vuejs do jeito ninja",
+                users: [
+                    { name: "Emma" },
+                    { name: "Sophia" },
+                    { name: "Catharine" }
+                ],
+                movie: 'game-of-thrones'
+            },
+
+            methods: {
+                remove(index) {
+                    this.users.splice(index, 1);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
