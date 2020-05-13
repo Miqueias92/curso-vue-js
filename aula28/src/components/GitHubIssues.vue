@@ -12,7 +12,7 @@
                 <div class="form-group">
                     <input v-model="username"
                         type="text" class="form-control" placeholder="github username">
-                    {{ username }}
+                    <!-- {{ username }} -->
                 </div>
             </div>
 
@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <input v-model="repository"
                         type="text" class="form-control" placeholder="github repositório">
-                    {{ repository }}
+                    <!-- {{ repository }} -->
                 </div>
             </div>
 
@@ -45,16 +45,17 @@
             </thead>
 
             <tbody>
-            <tr>
-                <td class="text-center" colspan="2"><img src="/static/loading.svg" alt=""></td>
+            <tr v-if="loader.getIssues">
+                <td colspan="2"><img src="/static/loading.svg" alt=""></td>
             </tr>
 
-            <tr>
-                <td></td>
-                <td></td>
+            <tr v-if="!!issues.length && !loader.getIssues"
+                v-for="issue in issues"
+                :key="issue.number">
+                <td>{{ issue.number }}</td>
+                <td>{{ issue.title }}</td>
             </tr>
-
-            <tr>
+            <tr v-if="!!!issues.length && !loader.getIssues">
                 <td class="text-center" colspan="2">Nenhuma issue encontrada!</td>
             </tr>
             </tbody>
@@ -71,6 +72,10 @@ export default {
     return {
       username: '',
       repository: '',
+      issues: [],
+      loader: {
+        getIssues: false,
+      },
     };
   },
   methods: {
@@ -80,11 +85,16 @@ export default {
     },
 
     getIssues() {
-      axios.get('https://jsonplaceholder.typicode.com/users')
-        .then((response) => {
-          // eslint-disable-next-line
-          console.log(response);
-        }).catch();
+      if (this.username && this.repository) {
+        this.loader.getIssues = true;
+        const url = `https://api.github.com/repos/${this.username}/${this.repository}/issues`;
+        axios.get(url)
+          .then((response) => {
+            this.issues = response.data;
+          }).catch().finally(() => {
+            this.loader.getIssues = false;
+          });
+      }
     },
   },
 };
