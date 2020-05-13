@@ -1,6 +1,5 @@
 <template>
-    <div>
-        <div class="container">
+    <div class="container">
         <h1>Vue.js + Github</h1>
         <p class="lead">
             Página que lista issues de um repositório do Github, usando Vue.js.
@@ -11,20 +10,26 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="github username">
+                    <input v-model="username"
+                        type="text" class="form-control" placeholder="github username">
+                    {{ username }}
                 </div>
             </div>
 
             <div class="col">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="github repositório">
+                    <input v-model="repository"
+                        type="text" class="form-control" placeholder="github repositório">
+                    {{ repository }}
                 </div>
             </div>
 
             <div class="col-3">
                 <div class="form-group">
-                    <button class="btn btn-success">GO</button>
-                    <button class="btn btn-danger">LIMPAR</button>
+                    <button @click.prevent.stop="getIssues()"
+                        class="btn btn-success">GO</button>
+                    <button @click.prevent.stop="reset()"
+                        class="btn btn-danger">LIMPAR</button>
                 </div>
             </div>
         </div>
@@ -55,15 +60,32 @@
             </tbody>
         </table>
     </div>
-    </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'GitHubIssues',
   data() {
-    return {};
+    return {
+      username: '',
+      repository: '',
+    };
   },
-  methods: {},
+  methods: {
+    reset() {
+      this.username = '';
+      this.repository = '';
+    },
+
+    getIssues() {
+      axios.get('https://jsonplaceholder.typicode.com/users')
+        .then((response) => {
+          // eslint-disable-next-line
+          console.log(response);
+        }).catch();
+    },
+  },
 };
 </script>
